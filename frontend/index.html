@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI-Powered Blockchain Fraud Detection Platform — Detect fake, illegal, and suspicious transactions on the blockchain in real-time.">
+    <title>ChainGuard — Blockchain Fraud Detection</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <!-- Animated background -->
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+    <div class="bg-glow bg-glow-3"></div>
+
+    <!-- Navigation -->
+    <nav id="main-nav" class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo" id="nav-logo">
+                <div class="logo-icon">
+                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                        <path d="M14 2L2 8.5V19.5L14 26L26 19.5V8.5L14 2Z" stroke="url(#logo-grad)" stroke-width="2" fill="none"/>
+                        <path d="M14 2L14 26" stroke="url(#logo-grad)" stroke-width="1.5" opacity="0.5"/>
+                        <path d="M2 8.5L26 19.5" stroke="url(#logo-grad)" stroke-width="1.5" opacity="0.5"/>
+                        <path d="M26 8.5L2 19.5" stroke="url(#logo-grad)" stroke-width="1.5" opacity="0.5"/>
+                        <circle cx="14" cy="14" r="3" fill="url(#logo-grad)" opacity="0.8"/>
+                        <defs>
+                            <linearGradient id="logo-grad" x1="0" y1="0" x2="28" y2="28">
+                                <stop offset="0%" stop-color="#00f0ff"/>
+                                <stop offset="100%" stop-color="#7c3aed"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <span>ChainGuard</span>
+            </a>
+            <div class="nav-links" id="nav-links">
+                <a href="#dashboard" class="nav-link active" data-section="dashboard">Dashboard</a>
+                <a href="#monitor" class="nav-link" data-section="monitor">Live Monitor</a>
+                <a href="#scanner" class="nav-link" data-section="scanner">TX Scanner</a>
+                <a href="#analytics" class="nav-link" data-section="analytics">Analytics</a>
+                <a href="#alerts" class="nav-link" data-section="alerts">Alerts</a>
+                <a href="#blocked" class="nav-link" data-section="blocked">Blocked</a>
+                <a href="#wallet" class="nav-link" data-section="wallet">Wallet</a>
+            </div>
+            <div class="nav-actions">
+                <div class="network-status" id="network-status">
+                    <span class="status-dot live"></span>
+                    <span class="status-text">Mainnet Live</span>
+                </div>
+                <button class="btn btn-primary btn-glow" id="connect-wallet-btn">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <rect x="1" y="4" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M4 4V3C4 1.89543 4.89543 1 6 1H10C11.1046 1 12 1.89543 12 3V4" stroke="currentColor" stroke-width="1.5"/>
+                        <circle cx="8" cy="9" r="1.5" fill="currentColor"/>
+                    </svg>
+                    Connect Wallet
+                </button>
+                <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- ===== HERO SECTION ===== -->
+        <section id="hero" class="hero-section">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="badge-dot"></span>
+                    AI-Powered Fraud Detection
+                </div>
+                <h1 class="hero-title">
+                    Detect <span class="gradient-text">Fraudulent</span> Blockchain Transactions in
+                    <span class="typing-wrapper">
+                        <span class="typing-text" id="typing-text"></span>
+                        <span class="typing-cursor">|</span>
+                    </span>
+                </h1>
+                <p class="hero-subtitle">
+                    ChainGuard uses advanced AI and machine learning to identify fake, illegal, and suspicious transactions across multiple blockchain networks — protecting assets in real-time.
+                </p>
+                <div class="hero-actions">
+                    <button class="btn btn-primary btn-lg btn-glow" id="hero-scan-btn">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="2"/>
+                            <path d="M14 14L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        Scan Transaction
+                    </button>
+                    <button class="btn btn-outline btn-lg" id="hero-demo-btn">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <polygon points="7,4 17,10 7,16" fill="currentColor"/>
+                        </svg>
+                        Watch Demo
+                    </button>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <span class="stat-value" id="stat-scanned">2.4M+</span>
+                        <span class="stat-label">TX Scanned</span>
+                    </div>
+                    <div class="hero-stat-divider"></div>
+                    <div class="hero-stat">
+                        <span class="stat-value" id="stat-flagged">18.7K</span>
+                        <span class="stat-label">Fraud Flagged</span>
+                    </div>
+                    <div class="hero-stat-divider"></div>
+                    <div class="hero-stat">
+                        <span class="stat-value" id="stat-accuracy">99.7%</span>
+                        <span class="stat-label">Accuracy</span>
+                    </div>
+                    <div class="hero-stat-divider"></div>
+                    <div class="hero-stat">
+                        <span class="stat-value" id="stat-chains">12</span>
+                        <span class="stat-label">Chains</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="blockchain-viz" id="blockchain-viz">
+                    <canvas id="blockchain-canvas"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== DASHBOARD SECTION ===== -->
+        <section id="dashboard" class="section">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2 class="section-title">Fraud Detection <span class="gradient-text">Dashboard</span></h2>
+                    <p class="section-subtitle">Real-time overview of blockchain transaction analysis and threat metrics</p>
+                </div>
+                <div class="dashboard-grid">
+                    <!-- Metric Cards -->
+                    <div class="metric-card card-glass" id="metric-total-tx">
+                        <div class="metric-icon" style="--icon-color: #00f0ff;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                                <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                                <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="metric-info">
+                            <span class="metric-label">Total Transactions</span>
+                            <span class="metric-value" id="dashboard-total-tx">1,284,592</span>
+                            <span class="metric-change positive">
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 10V2M6 2L2 6M6 2L10 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                                +12.5% today
+                            </span>
+                        </div>
+                    </div>
+                    <div class="metric-card card-glass" id="metric-fraud-detected">
+                        <div class="metric-icon" style="--icon-color: #f43f5e;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 9V13M12 17H12.01M4.93 19H19.07C20.55 19 21.45 17.38 20.71 16.1L13.64 3.58C12.9 2.3 11.1 2.3 10.36 3.58L3.29 16.1C2.55 17.38 3.45 19 4.93 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="metric-info">
+                            <span class="metric-label">Fraud Detected</span>
+                            <span class="metric-value danger" id="dashboard-fraud">847</span>
+                            <span class="metric-change negative">
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 2V10M6 10L2 6M6 10L10 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                                -3.2% vs yesterday
+                            </span>
+                        </div>
+                    </div>
+                    <div class="metric-card card-glass" id="metric-risk-score">
+                        <div class="metric-icon" style="--icon-color: #f59e0b;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 22C12 22 20 18 20 12V5L12 2L4 5V12C4 18 12 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                                <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="metric-info">
+                            <span class="metric-label">Avg Risk Score</span>
+                            <span class="metric-value warning" id="dashboard-risk">34.2</span>
+                            <span class="metric-change neutral">Moderate threat level</span>
+                        </div>
+                    </div>
+                    <div class="metric-card card-glass" id="metric-blocked">
+                        <div class="metric-icon" style="--icon-color: #10b981;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" stroke-width="2"/>
+                                <path d="M3 3L21 21" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <div class="metric-info">
+                            <span class="metric-label">Blocked Today</span>
+                            <span class="metric-value success" id="dashboard-blocked">156</span>
+                            <span class="metric-change positive">$2.3M saved</span>
+                        </div>
+                    </div>
+
+                    <!-- Chart Area -->
+                    <div class="chart-card card-glass" id="chart-fraud-trend">
+                        <div class="chart-header">
+                            <h3>Fraud Detection Trend</h3>
+                            <div class="chart-controls">
+                                <button class="chart-btn active" data-range="24h">24H</button>
+                                <button class="chart-btn" data-range="7d">7D</button>
+                                <button class="chart-btn" data-range="30d">30D</button>
+                                <button class="chart-btn" data-range="90d">90D</button>
+                            </div>
+                        </div>
+                        <div class="chart-body">
+                            <canvas id="fraud-trend-chart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Threat Distribution -->
+                    <div class="chart-card card-glass small" id="chart-threat-dist">
+                        <div class="chart-header">
+                            <h3>Threat Distribution</h3>
+                        </div>
+                        <div class="chart-body">
+                            <canvas id="threat-dist-chart"></canvas>
+                        </div>
+                        <div class="threat-legend" id="threat-legend">
+                            <div class="legend-item"><span class="legend-dot" style="background:#f43f5e;"></span>Wash Trading</div>
+                            <div class="legend-item"><span class="legend-dot" style="background:#f59e0b;"></span>Money Laundering</div>
+                            <div class="legend-item"><span class="legend-dot" style="background:#8b5cf6;"></span>Rug Pull</div>
+                            <div class="legend-item"><span class="legend-dot" style="background:#06b6d4;"></span>Phishing</div>
+                            <div class="legend-item"><span class="legend-dot" style="background:#10b981;"></span>Other</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== LIVE MONITOR SECTION ===== -->
+        <section id="monitor" class="section">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2 class="section-title">Live Transaction <span class="gradient-text">Monitor</span></h2>
+                    <p class="section-subtitle">Watch transactions flow across blockchain networks in real-time with AI risk assessment</p>
+                </div>
+                <div class="monitor-wrapper">
+                    <div class="monitor-controls card-glass">
+                        <div class="monitor-filter-group">
+                            <label>Network</label>
+                            <select id="monitor-network" class="select-input">
+                                <option value="all">All Networks</option>
+                                <option value="ethereum">Ethereum</option>
+                                <option value="bsc">BSC</option>
+                                <option value="polygon">Polygon</option>
+                                <option value="solana">Solana</option>
+                                <option value="arbitrum">Arbitrum</option>
+                            </select>
+                        </div>
+                        <div class="monitor-filter-group">
+                            <label>Risk Level</label>
+                            <select id="monitor-risk" class="select-input">
+                                <option value="all">All Levels</option>
+                                <option value="critical">Critical</option>
+                                <option value="high">High</option>
+                                <option value="medium">Medium</option>
+                                <option value="low">Low</option>
+                            </select>
+                        </div>
+                        <div class="monitor-filter-group">
+                            <label>Min Value</label>
+                            <input type="text" id="monitor-min-val" class="text-input" placeholder="0.0 ETH">
+                        </div>
+                        <button class="btn btn-primary" id="monitor-pause-btn">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <rect x="3" y="2" width="4" height="12" rx="1" fill="currentColor"/>
+                                <rect x="9" y="2" width="4" height="12" rx="1" fill="currentColor"/>
+                            </svg>
+                            Pause Feed
+                        </button>
+                    </div>
+                    <div class="monitor-feed card-glass" id="monitor-feed">
+                        <div class="feed-header">
+                            <span class="feed-col">TX Hash</span>
+                            <span class="feed-col">Network</span>
+                            <span class="feed-col">From → To</span>
+                            <span class="feed-col">Value</span>
+                            <span class="feed-col">Risk</span>
+                            <span class="feed-col">Status</span>
+                        </div>
+                        <div class="feed-body" id="feed-body">
+                            <!-- Dynamically populated -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== TX SCANNER SECTION ===== -->
+        <section id="scanner" class="section">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2 class="section-title">Transaction <span class="gradient-text">Scanner</span></h2>
+                    <p class="section-subtitle">Paste any transaction hash or wallet address to get an instant AI-powered fraud analysis</p>
+                </div>
+                <div class="scanner-wrapper">
+                    <div class="scanner-input-area card-glass">
+                        <div class="scanner-input-row">
+                            <div class="scanner-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
+                                    <path d="M16.5 16.5L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <input type="text" id="scanner-input" class="scanner-text-input" placeholder="Enter transaction hash or wallet address (e.g., 0x7a9f...)">
+                            <select id="scanner-chain" class="scanner-chain-select">
+                                <option value="ethereum">Ethereum</option>
+                                <option value="bsc">BSC</option>
+                                <option value="polygon">Polygon</option>
+                                <option value="solana">Solana</option>
+                                <option value="arbitrum">Arbitrum</option>
+                            </select>
+                            <button class="btn btn-primary btn-glow" id="scanner-btn">Analyze</button>
+                        </div>
+                    </div>
+
+                    <!-- Scanner Results (hidden by default) -->
+                    <div class="scanner-results" id="scanner-results" style="display: none;">
+                        <div class="result-overview card-glass">
+                            <div class="result-risk-gauge">
+                                <div class="gauge-ring" id="gauge-ring">
+                                    <svg viewBox="0 0 120 120">
+                                        <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="8"/>
+                                        <circle cx="60" cy="60" r="52" fill="none" stroke="url(#gauge-gradient)" stroke-width="8" stroke-dasharray="327" stroke-dashoffset="327" stroke-linecap="round" id="gauge-progress" transform="rotate(-90 60 60)"/>
+                                        <defs>
+                                            <linearGradient id="gauge-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                                <stop offset="0%" stop-color="#10b981"/>
+                                                <stop offset="50%" stop-color="#f59e0b"/>
+                                                <stop offset="100%" stop-color="#f43f5e"/>
+                                            </linearGradient>
+                                        </defs>
+                                    </svg>
+                                    <div class="gauge-value" id="gauge-value">0</div>
+                                    <div class="gauge-label">Risk Score</div>
+                                </div>
+                            </div>
+                            <div class="result-details">
+                                <div class="result-detail-row">
+                                    <span class="detail-label">Transaction Hash</span>
+                                    <span class="detail-value mono" id="result-hash">—</span>
+                                </div>
+                                <div class="result-detail-row">
+                                    <span class="detail-label">Network</span>
+                                    <span class="detail-value" id="result-network">—</span>
+                                </div>
+                                <div class="result-detail-row">
+                                    <span class="detail-label">Risk Classification</span>
+                                    <span class="detail-value" id="result-classification">—</span>
+                                </div>
+                                <div class="result-detail-row">
+                                    <span class="detail-label">Threat Type</span>
+                                    <span class="detail-value" id="result-threat-type">—</span>
+                                </div>
+                                <div class="result-detail-row">
+                                    <span class="detail-label">Confidence</span>
+                                    <span class="detail-value" id="result-confidence">—</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="result-flags card-glass">
+                            <h3>Detection Flags</h3>
+                            <div class="flags-list" id="flags-list">
+                                <!-- Dynamically populated -->
+                            </div>
+                        </div>
+                        <div class="result-graph card-glass">
+                            <h3>Transaction Flow Graph</h3>
+                            <div class="flow-graph" id="flow-graph">
+                                <canvas id="flow-canvas"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== ANALYTICS SECTION ===== -->
+        <section id="analytics" class="section">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2 class="section-title">Fraud <span class="gradient-text">Analytics</span></h2>
+                    <p class="section-subtitle">Deep insights into blockchain fraud patterns and trends across all monitored networks</p>
+                </div>
+                <div class="analytics-grid">
+                    <div class="analytics-card card-glass" id="analytics-heatmap">
+                        <h3>Activity Heatmap</h3>
+                        <p class="card-subtitle">Fraudulent activity by hour and day</p>
+                        <div class="heatmap-container" id="heatmap-container">
+                            <canvas id="heatmap-canvas"></canvas>
+                        </div>
+                    </div>
+                    <div class="analytics-card card-glass" id="analytics-networks">
+                        <h3>Network Comparison</h3>
+                        <p class="card-subtitle">Fraud detection rates across chains</p>
+                        <div class="network-bars" id="network-bars">
+                            <!-- Dynamically populated -->
+                        </div>
+                    </div>
+                    <div class="analytics-card card-glass wide" id="analytics-top-threats">
+                        <h3>Top Threat Actors</h3>
+                        <p class="card-subtitle">Most active suspicious addresses this week</p>
+                        <div class="threat-table-wrapper">
+                            <table class="threat-table" id="threat-table">
+                                <thead>
+                                    <tr>
+                                        <th>Rank</th>
+                                        <th>Address</th>
+                                        <th>Network</th>
+                                        <th>Suspicious TXs</th>
+                                        <th>Total Value</th>
+                                        <th>Risk Score</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="threat-table-body">
+                                    <!-- Dynamically populated -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== ALERTS SECTION ===== -->
+        <section id="alerts" class="section">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2 class="section-title">Security <span class="gradient-text">Alerts</span></h2>
+                    <p class="section-subtitle">Recent alerts and notifications from the fraud detection engine</p>
+                </div>
+                <div class="alerts-feed" id="alerts-feed">
+                    <!-- Dynamically populated -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== BLOCKED HASHES SECTION ===== -->
+        <section id="blocked" class="section">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2 class="section-title">Blocked <span class="gradient-text">Hashes</span></h2>
+                    <p class="section-subtitle">Database of blacklisted transaction hashes and malicious contract addresses</p>
+                </div>
+                <div class="blocked-hashes-wrapper card-glass">
+                    <div class="blocked-header">
+                        <span class="blocked-col">Hash / Address</span>
+                        <span class="blocked-col">Reason</span>
+                        <span class="blocked-col">Network</span>
+                        <span class="blocked-col">Date Blocked</span>
+                        <span class="blocked-col">Action</span>
+                    </div>
+                    <div class="blocked-body" id="blocked-hashes-body">
+                        <!-- Dynamically populated -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- ===== WALLET PORTAL SECTION ===== -->
+        <section id="wallet" class="section">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2 class="section-title">MetaMask <span class="gradient-text">Portal</span></h2>
+                    <p class="section-subtitle">Securely connect your wallet to manage on-chain fraud reports and contract interactions</p>
+                </div>
+                <div class="wallet-portal-card card-glass">
+                    <div class="wallet-status-display">
+                        <div class="wallet-icon-large">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Mirror_Logo.svg" alt="MetaMask" width="60">
+                        </div>
+                        <div class="wallet-info-text">
+                            <h3 id="wallet-status-title">Wallet Disconnected</h3>
+                            <p id="wallet-status-desc">Connect your MetaMask to enable smart contract features and administrative controls.</p>
+                        </div>
+                    </div>
+                    <div class="wallet-actions">
+                        <button class="btn btn-primary btn-lg btn-glow" id="portal-connect-btn">
+                            Connect MetaMask
+                        </button>
+                    </div>
+                    <div id="wallet-details" style="display: none;">
+                        <div class="detail-grid">
+                            <div class="detail-item">
+                                <span class="label">Address</span>
+                                <span class="value mono" id="wallet-address">0x...</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="label">Network</span>
+                                <span class="value" id="wallet-network">Unknown</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="label">Balance</span>
+                                <span class="value" id="wallet-balance">0.00 ETH</span>
+                            </div>
+                        </div>
+                        <div class="admin-actions" id="admin-actions" style="display: none; margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border);">
+                            <h4 style="margin-bottom: 16px;">Administrative Controls</h4>
+                            <div class="admin-form">
+                                <input type="text" id="block-hash-input" class="text-input" placeholder="Hash to block..." style="width: 100%; margin-bottom: 12px;">
+                                <input type="text" id="block-reason-input" class="text-input" placeholder="Reason for blocking..." style="width: 100%; margin-bottom: 12px;">
+                                <button class="btn btn-primary" id="submit-block-btn" style="width: 100%;">Execute On-Chain Block</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <div class="nav-logo">
+                        <div class="logo-icon">
+                            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                                <path d="M14 2L2 8.5V19.5L14 26L26 19.5V8.5L14 2Z" stroke="url(#logo-grad2)" stroke-width="2" fill="none"/>
+                                <circle cx="14" cy="14" r="3" fill="url(#logo-grad2)" opacity="0.8"/>
+                                <defs>
+                                    <linearGradient id="logo-grad2" x1="0" y1="0" x2="28" y2="28">
+                                        <stop offset="0%" stop-color="#00f0ff"/>
+                                        <stop offset="100%" stop-color="#7c3aed"/>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+                        <span>ChainGuard</span>
+                    </div>
+                    <p>AI-powered blockchain fraud detection platform. Protecting digital assets across 12+ networks.</p>
+                </div>
+                <div class="footer-links-group">
+                    <h4>Platform</h4>
+                    <a href="#dashboard">Dashboard</a>
+                    <a href="#monitor">Live Monitor</a>
+                    <a href="#scanner">TX Scanner</a>
+                    <a href="#analytics">Analytics</a>
+                </div>
+                <div class="footer-links-group">
+                    <h4>Resources</h4>
+                    <a href="#">API Docs</a>
+                    <a href="#">Whitepaper</a>
+                    <a href="#">GitHub</a>
+                    <a href="#">Community</a>
+                </div>
+                <div class="footer-links-group">
+                    <h4>Legal</h4>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Security</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2026 ChainGuard. All rights reserved.</span>
+                <span>Built with ❤️ for a safer blockchain | Powered by <strong style="color: var(--cyan);">Uzair 67553</strong></span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="index.js"></script>
+</body>
+</html>
